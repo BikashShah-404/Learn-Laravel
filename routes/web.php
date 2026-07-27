@@ -2,18 +2,7 @@
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
-
-
-class Job{
-    public static function all() : array
-    {
-        return [['id' => '1', 'title' => 'Software Engineer', 'salary' => 'NPR 1,20,000'], ['id' => '2', 'title' => 'AI Engineer', 'salary' => 'NPR 1,50,000'], ['id' => '3', 'title' => 'SEO Engineer', 'salary' => 'NPR 1,00,000']];
-    }
-
-    public static function getOne(){
-        $jobs=Job::all();
-    }
-}
+use App\Models\Job;
 
 Route::get('/home', function () {
     return view('home');
