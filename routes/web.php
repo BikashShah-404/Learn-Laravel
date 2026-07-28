@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Job;
 
 Route::get('/home', function () {
-    return view('home');
+    return view('home'); 
 });
 
 Route::get('/jobs', function ()  {
@@ -12,7 +12,8 @@ Route::get('/jobs', function ()  {
 });
 
 Route::get('/jobs/{id}', function ($id) {
-    return view('job',["job"=>Job::getOne($id)]); 
+    $job=Job::find($id);
+    return view('job',["job"=>$job]); 
 });
 
 Route::get('/about', function () {
