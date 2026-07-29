@@ -16,19 +16,18 @@
             </li>
         @endforeach
     </ul>
+    {{-- The UI of pagination div already looks by default because laravel assumes that we r using tailwind , well we r too --}}
+    <div class="mx-10 mt-10">{{ $jobs->links() }}</div>
 </x-layout>
 
-{{-- We have a bit of the problem and the problem is called the N+1 problem ,   it refers to the database queries executed within a loop, rather than making a single query that loads all of the relevant data up front --}}
 
-{{-- We know that a new sql query is executed when we refrence a relationship which is called the lazy loading, how does the concept of lazy loading works in the context of loop, will multiple queries run for each loop iteration(each item in the loop) Well, Yes --}}
+{{-- vendor refers to any package that we have pulled in from composer and publish means that we want to publish any relevant assets,routes,file,views to my application folder so that we can manually control and edit them , so the view for our pagination component is currently in one of those vendor packages, so we want to maually control it right and hence we run : php artisan vendor:publish --}}
 
-{{-- That is where the N+1 Problem comes --}}
-{{-- Note : Composer is a package manager --}}
+{{-- And then we get the views/vendor/pagination folder which contains multiple views for pagination since laravel supports various ways for displaying the pagination component and as well as various css frameworks --}}
 
-{{-- When we see multiple queries which are nearly identical other than a particular id, that's the N+1 problem --}}
+{{-- Now suppose if we want the css framwork to bootstrap-5 instead of default tailwind, then we need to configure our application which can be done is  Providers/AppServiceProvider.php file --}}
 
-{{-- So, we were running the query [select * from "employers" where "employers"."id" = 1 limit 1] for all of the data that we have in the employers table, if we had 1000 employers, 1000 of such queries would have been executed --}}
 
-{{-- Lazy Loading can be helpful, but use it carefully cause it might cause some performnce issues like this --}}
+{{-- There is a bit of performance cost in displaying pagination in this way.Suppose we have a forum with millions of records , it can actually be complex to calculate all of the pages number and render them --}}
 
-{{-- So, how do we Fix This?? --}}
+{{-- SO we can either render simple pagination links or we could do the cursor-based pagination --}}

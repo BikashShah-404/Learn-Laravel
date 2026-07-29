@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -26,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
     {
         // On doing this, when we try to lazy load, we get error and hence we need to eager load our data then
         Model::preventLazyLoading();
+        // Paginator::useBootstrapFive();
     }
 }
