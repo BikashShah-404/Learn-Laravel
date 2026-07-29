@@ -17,4 +17,14 @@ class Job extends Model{
   public function employer(){
     return $this->belongsTo(Employer::class);
   }
+
+  public function tags(){
+    return $this->belongsToMany(Tag::class, 'jobs_tags', 'job_listing_id');
+  }
 }
+
+// hasMany() means one-to-many
+// belongsToMany() means many-to-many
+
+// by default the laravel was taking job_tag table name, so had to explicitly pass table name as jobs_tags;
+// And for the same reason, we passed job_listing_id
