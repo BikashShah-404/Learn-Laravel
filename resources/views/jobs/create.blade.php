@@ -6,14 +6,33 @@
         <div>
             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
             <input type="text" name="title" id="title" placeholder="Software Engineer"
-                class="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                class="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                required />
+            @error('title')
+                <p class="text-sm text-red-700">{{ $message }}</p>
+            @enderror
+            {{-- THe message variable is only available inside the blade directive --}}
         </div>
 
         <div>
             <label for="salary" class="block text-sm font-medium text-gray-700">Salary</label>
             <input type="text" name="salary" id="salary" placeholder="$50,000 /yr"
-                class="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                class="mt-1 block w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                required>
+            @error('salary')
+                <p class="text-sm text-red-700">{{ $message }}</p>
+            @enderror
         </div>
+
+        {{-- <div class="mt-4">
+            @if ($errors->any())
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li class="text-red-700 italic">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+        </div> --}}
 
         {{-- <div>
             <label for="employer" class="block text-sm font-medium text-gray-700">Employer</label>

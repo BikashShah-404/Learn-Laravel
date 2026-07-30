@@ -13,23 +13,15 @@ Route::get('/jobs', function ()  {
 });
 
 Route::post('/jobs', function ()  {
-    // In previous version of laravel, we would get 419 error which essentially means the Laravel's Automatic CSRF protection. and we would have to add @csrf(a hidden inout field with the value set to our session token) in order to send the token along with our request which laravel would verify with our session token and complete the request.
-    // But now in newer versions, PreventRequestForgery also checks the browser's Sec-Fetch-Site header, so same-origin requests from modern browsers skip the token check.
-    // However, you should still always add @csrf for compatibility — old browsers, curl/Postman, and cross-site requests still rely on the token.
 
-    // dd(request()->all()); 
-    // array:3 [▼ // routes\web.php:20
-    //   "_token" => "LksUKBKzsPGneXtDcjsZclV7HMA66NqA0KrKcnH0"
-    //   "title" => "Apple"
-    //   "salary" => "100000"
-    // ]
+    // Always validate , never trust the user: 
+    // Client-Side Validation is also necessary , but the user can bypass client side validation by simply using terminal to send requests, or using postman, or curl,etc.
+    // The most important is server side validation:
 
-    // dd(request('title'))
+    request()->validate(['title'=>['required','min:3'],'salary'=>['required']]);
 
-    // We need to validate too , skip for now
 
     Job::create(['title'=>request('title'),'salary'=>request('salary'),'employer_id'=>1]);
- 
     return redirect('/jobs');
 });
 

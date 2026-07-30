@@ -2,7 +2,7 @@
     <x-slot:heading>Job Listings</x-slot:heading>
     <p class="flex justify-between px-10">
         <span>Job Listings are below :</span>
-        <a href="/jobs/create" class="bg-blue-900 text-white px-4 py-1.5 rounded-xl">Create Job</a>
+        <x-button href="/jobs/create">Create Job</x-button>
     </p>
 
     <ul class="flex flex-col gap-4 my-4">
