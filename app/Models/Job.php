@@ -11,7 +11,9 @@ class Job extends Model{
 
   protected $table='job_listings';
 
-  protected $fillable=['title','salary'];
+  // protected $fillable=['title','salary','employer_id'];
+  protected $guarded=[]; //Disabling Fillable Property here , but sure enough we need to validate the form requests 
+  
 
   // We say Job Belongs to Employer, so belongsTo, also in reverse we can say an Employer has many Jobs, so in employer Model ,we could use $this->hasMany(Job::class), similary we have many such relations definitions Eloquent has provide us with.
   public function employer(){

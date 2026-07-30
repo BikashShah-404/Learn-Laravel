@@ -1,6 +1,10 @@
 <x-layout>
     <x-slot:heading>Job Listings</x-slot:heading>
-    <p>Job Listings are below : </p>
+    <p class="flex justify-between px-10">
+        <span>Job Listings are below :</span>
+        <a href="/jobs/create" class="bg-blue-900 text-white px-4 py-1.5 rounded-xl">Create Job</a>
+    </p>
+
     <ul class="flex flex-col gap-4 my-4">
         @foreach ($jobs as $job)
             <li class="">
