@@ -3,10 +3,6 @@
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
-// Often we get into the situations where we listen for a get request and do nothing expect returning a view , for such situations we can use Route::view
-// Route::get('/home', function () {
-//     return view('home'); 
-// });
 
 Route::view("/home",'home');
 
@@ -22,6 +18,7 @@ Route::view("/about",'about');
 Route::view("/contact",'contact');
 
 
-
-
-
+// Listing our routes :
+// php artisan route:list - list our app routes but also routes related to third party packages.
+// To get our app routes only:
+// php artisan route:list --except-vendor 
