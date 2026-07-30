@@ -25,54 +25,27 @@ Route::post('/jobs', function ()  {
 
 
 // Generally the wildcard for our routes are below all of the specific routes.
-Route::get('/jobs/{id}', function ($id) {
-    $job=Job::find($id);
+// Wildcard and parameter should have same name, and then we add type to the parameter to signal the laravel i want the instance of that class instead of the string that is in the URI.SO laravel matches the string that is in the URI to the id of the jobs in the db and hence returns the job
+
+// Now to configure what column in db should laravel match against the string that is passed in URI, we  add : and then the column name 
+// {post:slug} in case of blog for exmaple, the default is {post:id}
+Route::get('/jobs/{job:id}', function (Job $job) {
     return view('jobs.show',["job"=>$job]); 
 });
 
-Route::get('/jobs/{id}/edit', function ($id) {
-    $job=Job::find($id);
+Route::get('/jobs/{job}/edit', function (Job $job) {
     return view('jobs.edit',["job"=>$job]); 
 });
 
-Route::patch('/jobs/{job}', function (  $id )//Job $job in param for route model binding
+Route::patch('/jobs/{job}', function ( Job $job )
  {
-   
-
-    // validate
     request()->validate(['title'=>['required','min:3'],'salary'=>['required']]);
-
-    // authorize(on Hold)
-
-    
-    // update and persist
-
-    // We can use concept of route model binding like this :
-    // Route Model Binding: Laravel sees {job} + Job $job, so it auto-runs
-   // Job::findOrFail($id) and injects the $job instance. No manual lookup needed.
-   // If not found, it throws 404 automatically.
-   // Contrast with manual: {id} + Job::find($id) — you write the lookup,
-   // it returns null on miss (no 404), and the variable name doesn't enforce
-   // any convention beyond your own naming.
-    // $job->update(['title'=>request('title'),'salary'=>request('salary')]);
-
-    $job=Job::findOrFail($id); //What is we try to update a job which doesn't exist, that would crash our app, so we use findOrFail()
-
-    // One Way:
-    // $job->title=request('title');
-    // $job->salary=request('salary');
-    // $job->save();
-
-    // Another Way:
     $job->update(['title'=>request('title'),'salary'=>request('salary')]);
-
-    
-    // redirect to the job page
-    return redirect('/jobs/' . $job->id);  // . is string concatenation operator.
+    return redirect('/jobs/' . $job->id);  
 });
 
-Route::delete('/jobs/{id}', function ($id) {
-    Job::findOrFail($id)->delete();
+Route::delete('/jobs/{job}', function (Job $job) {
+    $job->delete();
     return redirect("/jobs");
 });
 
